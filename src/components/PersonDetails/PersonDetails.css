@@ -1,0 +1,11 @@
+.card {
+    flex-direction: row;
+    align-items: center;
+}
+
+.personImage {
+    width: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 40px;
+}
