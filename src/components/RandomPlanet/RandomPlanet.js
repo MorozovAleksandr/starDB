@@ -13,32 +13,24 @@ class RandomPlanet extends React.Component {
     }
 
     state = {
-        id: null,
-        name: null,
-        population: null,
-        rotationPeriod: null,
-        diametr: null,
+        planet: {}
     };
 
     swapiservice = new SwapiService();
+
+    onPlanetLoaded = (planet) => {
+        this.setState({ planet })
+    }
 
     updatePlanet() {
         const id = Math.floor(Math.random() * 15) + 2;
         this.swapiservice
             .getPlanet(id)
-            .then((planet) => {
-                this.setState({
-                    id,
-                    name: planet.name,
-                    population: planet.population,
-                    rotationPeriod: planet.rotation_period,
-                    diametr: planet.diameter,
-                })
-            });
+            .then(this.onPlanetLoaded);
     }
 
     render() {
-        const { name, population, rotationPeriod, diametr, id } = this.state;
+        const { planet: { id, name, population, rotationPeriod, diametr } } = this.state;
         return (
             <div className="random-planet jumbotron rounded card" >
                 <img className="planetImage"
