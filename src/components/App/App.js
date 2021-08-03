@@ -1,26 +1,40 @@
 import './App.css';
+import React from 'react';
+import Header from '../Header/Header.js';
+import RandomPlanet from '../RandomPlanet/RandomPlanet.js';
+import SwapiService from '../../services/swapi-service';
+import { SwapiServiceProvider } from '../swapiServiceContext/swapiServiceContext';
+import PeoplePage from '../Pages/PeoplePage';
+import StarshipPage from '../Pages/StarshipPage';
+import PlanetPage from '../Pages/PlanetPage';
 
-import Header from '../Header/Header.js'
-import RandomPlanet from '../RandomPlanet/RandomPlanet.js'
-import ItemList from '../ItemList/ItemList.js'
-import PersonDetails from '../PersonDetails/PersonDetails.js'
 
+class App extends React.Component {
 
-const App = () => {
-    return (
-        <div>
-            <Header />
-            <div className="col-md-6 mt-4">
-                <RandomPlanet />
+    swapiService = new SwapiService();
+
+    state = {
+
+    }
+
+    render() {
+        return (
+            <div>
+                <SwapiServiceProvider value={this.swapiService}>
+                    <Header />
+                    <div className="container mt-4">
+                        <RandomPlanet updateInterval={10000} />
+                    </div>
+
+                    <PeoplePage />
+
+                    <StarshipPage />
+
+                    <PlanetPage />
+                </SwapiServiceProvider>
             </div>
-            <div className="col-md-6 mt-4">
-                <ItemList />
-            </div>
-            <div className="col-md-6 mt-4">
-                <PersonDetails />
-            </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default App;
